@@ -1,4 +1,15 @@
 import os
+from config import CONFIG
+
+
+def configure_git():
+    resp1 = os.system("git config --global user.email \"%s\"" % CONFIG["email"])
+    resp2 = os.system("git config --global user.name \"%s\"" % CONFIG["name"])
+
+    if resp1 + resp2 == 0:
+        print("git configuration .... OK")
+    else:
+        print("git configuration .... KO")
 
 
 def install_packages():
@@ -8,7 +19,7 @@ def install_packages():
     """
     utils_packages = ("build-essential", "git", "git-flow", "vim", "maven", "supervisor", "php", "apache2",
                       "mysql-server", "php-mysql", "phpmyadmin", "php-sqlite3", "atool", "ipython", "python3-setuptools",
-                      "ssh")
+                      "ssh", "gimp")
 
     status = []
 
@@ -58,8 +69,10 @@ def install_oracle_jdk():
 
 
 def run():
+
     os.system("sudo apt-get update")
     install_packages()
+    configure_git()
     install_oracle_jdk()
 
 if __name__ == '__main__':
