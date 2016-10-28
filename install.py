@@ -17,7 +17,7 @@ def install_packages():
     Install useful packages
     :return:
     """
-    utils_packages = ("build-essential", "git", "tree", "git-flow", "vim", "maven", "supervisor", "php", "apache2",
+    utils_packages = ("build-essential", "git", "tree", "git-flow", "vim", "maven", "supervisor", "php", "libapache2-mod-php", "apache2", "php-mcrypt",
                       "mysql-server", "php-mysql", "phpmyadmin", "php-sqlite3", "atool", "ipython", "python3-setuptools",
                       "ssh", "gimp")
 
