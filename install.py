@@ -18,7 +18,7 @@ def install_packages():
     :return:
     """
     utils_packages = ("build-essential", "git", "tree", "git-flow", "vim", "maven", "supervisor", "php", "libapache2-mod-php", "apache2", "php-mcrypt",
-                      "mysql-server", "php-mysql", "phpmyadmin", "php-sqlite3", "atool", "ipython", "python3-setuptools",
+                      "mysql-server", "php-mysql", "phpmyadmin", "php-sqlite3", "atool", "ipython", "python3-setuptools", "python3-mysqldb",
                       "ssh", "gimp")
 
     status = []
@@ -38,13 +38,15 @@ def install_packages():
             install_ok += 1
             status.append("Install %s .... OK" % package)
 
-    # Extra install
+    # Extra installation
+    # - pip installation
+    total += 1
     resp = os.system("sudo easy_install3 pip")
     if resp != 0:
         status.append("Install pip .... KO")
     else:
         install_ok += 1
-        total += 1
+        os.system("sudo pip install --upgrade pip")
         status.append("Install pip .... OK")
 
     print("---- End of packages installation  ----")
