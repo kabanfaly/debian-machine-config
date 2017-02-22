@@ -18,7 +18,7 @@ def install_packages():
     :return:
     """
     utils_packages = ("build-essential", "git", "tree", "git-flow", "vim", "maven", "supervisor", "php", "libapache2-mod-php", "apache2", "php-mcrypt",
-                      "mysql-server", "php-mysql", "phpmyadmin", "php-sqlite3", "atool", "ipython", "python3-setuptools", "python3-mysqldb",
+                      "mysql-server", "php-mysql", "phpmyadmin", "php-sqlite3", "atool", "ipython", "python3-setuptools", "python3-mysqldb", "php-gettext", "php-xdebug", "libapache2-mod-php7.0",
                       "ssh", "gimp", "curl", "terminator", "zsh", "npm")
 
     status = []
