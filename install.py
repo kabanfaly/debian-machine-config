@@ -19,7 +19,7 @@ def install_packages():
     """
     utils_packages = ("build-essential", "git", "tree", "git-flow", "vim", "maven", "supervisor", "php", "libapache2-mod-php", "apache2", "php-mcrypt",
                       "mysql-server", "php-mysql", "phpmyadmin", "php-sqlite3", "atool", "ipython", "python3-setuptools", "python3-mysqldb",
-                      "ssh", "gimp")
+                      "ssh", "gimp", "curl", "terminator", "zsh", "npm")
 
     status = []
 
@@ -70,12 +70,67 @@ def install_oracle_jdk():
     print("Installing Java7 OK ...")
 
 
+def install_npm_modules():
+    """
+    Install some npm modules
+    :return:
+    """
+    os.system("sudo ln -sf /usr/bin/nodejs /usr/bin/node")
+    modules = ["npm", "yo", "gulp-cli", "bower", "generator-jhipster"]
+
+    for mod in modules:
+        os.system("sudo npm install -g %s" % mod)
+
+
+def configure_hosts():
+    """
+    add costum hosts
+    :return:
+    """
+    if 'dev.perform-world.com' not in open('/etc/hosts').read():
+        os.system("echo  '127.0.0.1       dev.perform-world.com' | sudo tee -a /etc/hosts")
+        os.system("echo  '127.0.0.1       local.supervisor' | sudo tee -a /etc/hosts")
+
+
+def configure_apache2():
+    """
+    configures apache2
+    :return:
+    """
+    os.system("sudo cp ./apache2/sites-available/perform-world.conf /etc/apache2/sites-available")
+    os.system("sudo a2ensite perform-world.conf")
+    os.system("sudo service apache2 restart")
+
+
+
+def configure_supervisor():
+    """
+    configures supervisord
+    :return:
+    """
+
+    os.system("sudo cp ./apache2/sites-available/supervisord.conf /etc/apache2/sites-available")
+
+    if 'kaba' not in open('/etc/hosts').read():
+        os.system("echo  '[inet_http_server]' | sudo tee -a /etc/supervisor/supervisord.conf")
+        os.system("echo  'port = 127.0.0.1:9001' | sudo tee -a /etc/supervisor/supervisord.conf")
+        os.system("echo  'username = kaba' | sudo tee -a /etc/supervisor/supervisord.conf")
+        os.system("echo  'password = {SHA}da3c01ea4729ba5fc5ed83d2e85b2b00c118753f' | sudo tee -a /etc/supervisor/supervisord.conf")
+
+    os.system("sudo a2ensite supervisord.conf")
+    os.system("sudo service apache2 restart")
+    os.system("sudo service supervisor restart")
+
 def run():
 
     os.system("sudo apt-get update")
     install_packages()
     configure_git()
     install_oracle_jdk()
+    install_npm_modules()
+    configure_hosts()
+    configure_apache2()
+    # configure_supervisor()
 
 if __name__ == '__main__':
     run()
