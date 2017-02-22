@@ -98,8 +98,9 @@ def configure_apache2():
     :return:
     """
     os.system("sudo cp ./apache2/sites-available/perform-world.conf /etc/apache2/sites-available")
-    os.system("sudo a2ensite perform-world.conf")
+    os.system("sudo a2enmod proxy")
     os.system("sudo service apache2 restart")
+    os.system("sudo a2ensite perform-world.conf")
 
 
 
