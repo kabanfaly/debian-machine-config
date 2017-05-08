@@ -62,7 +62,7 @@ def install_oracle_jdk():
     Install oracle version of JDK7 and JDK8
     :return:
     """
-    os.system("sudo apt-get install -y python-software-properties")
+    os.system("sudo apt-get install -y software-properties-common")
     os.system("sudo add-apt-repository ppa:webupd8team/java")
     os.system("sudo apt-get update")
     os.system("sudo apt-get install -y oracle-java7-installer oracle-java8-installer")
