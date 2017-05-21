@@ -14,6 +14,8 @@ php-mcrypt
 mysql-server
 php-mysql
 phpmyadmin
+php-mbstring
+php-gettext
 php-sqlite3
 atool
 ipython
