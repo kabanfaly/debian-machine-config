@@ -76,7 +76,7 @@ def install_npm_modules():
     :return:
     """
     os.system("sudo ln -sf /usr/bin/nodejs /usr/bin/node")
-    modules = ["npm", "yo", "gulp-cli", "bower", "generator-jhipster"]
+    modules = ["npm", "yo", "gulp-cli", "bower", "generator-angular", "generator-jhipster"]
 
     for mod in modules:
         os.system("sudo npm install -g %s" % mod)
