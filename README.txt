@@ -29,5 +29,5 @@ gimp
 curl
 terminator
 zsh
-npm (yo, bower, gulp-cli, generator-angular, generator-jhipster)
+npm (yo, bower, gulp-cli, generator-angular)
 vsftpd
