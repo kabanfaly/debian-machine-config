@@ -80,6 +80,10 @@ def install_npm_modules():
 
     for mod in modules:
         os.system("sudo npm install -g %s" % mod)
+    
+    os.system("sudo apt remove nodejs npm")
+    os.system("curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -")
+    os.system("sudo apt-get install -y nodejs")
 
 
 def configure_hosts():
