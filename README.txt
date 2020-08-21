@@ -29,5 +29,12 @@ gimp
 curl
 terminator
 zsh
-npm (yo, bower, gulp-cli, generator-angular)
+npm (yo, bower, gulp-cli, generator-angular, generator-jhipster)
 vsftpd
+java8
+java11
+java13
+
+
+# run
+python3 install.py
