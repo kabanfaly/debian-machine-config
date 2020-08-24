@@ -1,3 +1,2 @@
-# run docker-compose first
-mysql -u root -pkabamysql --protocol=TCP
+docker exec -it mariadb mysql -u root -pkabamysql --protocol=TCP
 
