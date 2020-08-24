@@ -6,7 +6,7 @@ def configure_git():
     print('----- Configuring GIT -----')
 
     confirm = input('Your are about to configure git. Do you want to continue ? Y/N : ')
-    if confirm.upper() in ('Y', 'YES') :
+    if confirm.upper() not in ('N', 'No'):
         resp1 = os.system("git config --global user.email \"%s\"" % CONFIG["email"])
         resp2 = os.system("git config --global user.name \"%s\"" % CONFIG["name"])
 
@@ -38,17 +38,6 @@ def install_packages(packages):
             install_ok += 1
             status.append("Install %s .... OK" % package)
 
-    # Extra installation
-    # - pip installation
-    total += 1
-    resp = os.system("sudo easy_install3 pip")
-    if resp != 0:
-        status.append("Install pip .... KO")
-    else:
-        install_ok += 1
-        os.system("sudo pip install --upgrade pip")
-        status.append("Install pip .... OK")
-
     print("---- End of packages installation  ----")
 
     for s in status:
@@ -61,41 +50,52 @@ def install_utils_packages():
     :return:
     """
     confirm = input('Your are about to install utils packages. Do you want to continue ? Y/N : ')
-    if confirm.upper() in ('Y', 'YES') :
+    if confirm.upper() not in ('N', 'No'):
         install_packages(UTILS_PACKAGES)
 
-def install_php5_6():
+def install_php(version) :
     """
     Install some php packages
     :return:
     """
-    confirm = input('Your are about to install php 5.6 . Do you want to continue ? Y/N : ')
-    if confirm.upper() in ('Y', 'YES') :
+    confirm = input('Your are about to install php ' + version + ' . Do you want to continue ? Y/N : ')    
+    if confirm.upper() not in ('N', 'No') :
         os.system('sudo apt install software-properties-common')
         os.system('sudo add-apt-repository ppa:ondrej/php && sudo apt update')
-        install_packages(PHP5_6_PACKAGES)
+        packages = [package.replace('VERSION', version) for package in PHP_PACKAGES]
+        install_packages(packages)
+        os.system('sudo a2enmod actions alias proxy_fcgi fcgid')        
+        os.system('echo echo "<?php phpinfo() ?>" | sudo tee /var/www/html/_info.php')
+        os.system('sudo cp ./scripts/usePhp.py /usr/local/bin')        
+        os.system('sudo mv /usr/local/bin/usePhp.py /usr/local/bin/usePhp')
+        os.system('sudo chmod +x /usr/local/bin/usePhp')
+                
+        install_composer()
+        os.system('sudo systemctl restart apache2')
+
+
+def install_composer() :
+    """
+    Install some php composer
+    :return:
+    """
+    print('Installing composer ....')
+    os.system('sudo apt install curl')
+    os.system('curl -sS https://getcomposer.org/installer -o composer.php')
+    os.system('HASH=`curl -sS https://composer.github.io/installer.sig`')
+    os.system('echo $HASH')
+    os.system("php -r \"if (hash_file('SHA384', 'composer.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\"")
+    os.system('sudo php composer.php --install-dir=/usr/local/bin --filename=composer')
+
+
+def install_php5_6():
+    install_php('5.6')
 
 def install_php7_2():
-    """
-    Install some php packages
-    :return:
-    """
-    confirm = input('Your are about to install php 7.2 . Do you want to continue ? Y/N : ')
-    if confirm.upper() in ('Y', 'YES') :
-        os.system('sudo apt install software-properties-common')
-        os.system('sudo add-apt-repository ppa:ondrej/php && sudo apt update')
-        install_packages(PHP7_2_PACKAGES)
+     install_php('7.2')
 
 def install_php7_4():
-    """
-    Install some php packages
-    :return:
-    """
-    confirm = input('Your are about to install php 7.4 . Do you want to continue ? Y/N : ')
-    if confirm.upper() in ('Y', 'YES') :
-        os.system('sudo apt install software-properties-common')
-        os.system('sudo add-apt-repository ppa:ondrej/php && sudo apt update')
-        install_packages(PHP7_4_PACKAGES)
+     install_php('7.4')
 
 def install_java():
     """
@@ -105,7 +105,7 @@ def install_java():
     print('----- Installing Java -----')
 
     confirm = input('Your are about to install java. Do you want to continue ? Y/N : ')
-    if confirm.upper() in ('Y', 'YES') :
+    if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt-get install -y software-properties-common")
         os.system("add-apt-repository ppa:linuxuprising/java")
         os.system("sudo apt-get update")
@@ -122,7 +122,7 @@ def install_npm_modules():
     print('----- Installing npm modules -----')
 
     confirm = input('Your are about to install npm modules. Do you want to continue ? Y/N : ')
-    if confirm.upper() in ('Y', 'YES') :
+    if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt-get update")
         os.system("sudo apt-get install -y npm")
         os.system("sudo ln -sf /usr/bin/nodejs /usr/bin/node")
@@ -144,7 +144,7 @@ def configure_hosts():
     print('----- Configuring hosts -----')
 
     confirm = input('Your are about to configure hosts. Do you want to continue ? Y/N : ')
-    if confirm.upper() in ('Y', 'YES') :
+    if confirm.upper() not in ('N', 'No'):
         if 'dev.perform-world.com' not in open('/etc/hosts').read():
             os.system("echo  '127.0.0.1       dev.perform-world.com' | sudo tee -a /etc/hosts")
             os.system("echo  '127.0.0.1       local.supervisor' | sudo tee -a /etc/hosts")
@@ -157,7 +157,7 @@ def configure_apache2():
     """
     print('----- Configuring apache2 -----')
     confirm = input('Your are about to configure apache2. Do you want to continue ? Y/N : ')
-    if confirm.upper() in ('Y', 'YES') :
+    if confirm.upper() not in ('N', 'No'):
         os.system('sudo apt install apache2')
         os.system("sudo cp ./apache2/sites-available/perform-world.conf /etc/apache2/sites-available")
         os.system("sudo a2enmod proxy")
@@ -172,7 +172,7 @@ def install_docker():
     """
     print('----- Installing docker -----')
     confirm = input('Your are about to install docker. Do you want to continue ? Y/N : ')
-    if confirm.upper() in ('Y', 'YES') :
+    if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt-get update")
         os.system("sudo apt-get remove docker docker-engine docker.io")
         os.system("sudo apt install -y docker.io")
@@ -193,7 +193,7 @@ def configure_supervisor():
     print('----- Installing supervisor -----')
 
     confirm = input('Your are about to install supervisor. Do you want to continue ? Y/N : ')
-    if confirm.upper() in ('Y', 'YES') :
+    if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt-get update")
         os.system("sudo apt install -y supervisor")
         os.system("sudo cp ./apache2/sites-available/supervisord.conf /etc/apache2/sites-available")

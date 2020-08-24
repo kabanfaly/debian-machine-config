@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import sys, os
 
 PHP_VERSIONS = ['5.6', '7.2', '7.4']
