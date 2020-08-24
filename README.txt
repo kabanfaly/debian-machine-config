@@ -34,6 +34,8 @@ vsftpd
 java8
 java11
 java13
+docker
+docker-compose
 
 
 # run

@@ -4,7 +4,7 @@ from config import *
 
 def configure_git():
     print('----- Configuring GIT -----')
-    
+
     confirm = input('Your are about to configure git. Do you want to continue ? Y/N : ')
     if confirm.upper() in ('Y', 'YES') :
         resp1 = os.system("git config --global user.email \"%s\"" % CONFIG["email"])
@@ -153,6 +153,11 @@ def install_docker():
         os.system("sudo apt install -y docker.io")
         os.system("sudo systemctl start docker")
         os.system("sudo systemctl enable docker")
+        print('----- Installing docker-compose -----')
+        os.system('sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose')
+        os.system('sudo chmod +x /usr/local/bin/docker-compose')
+        os.system('sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose')
+        os.system('docker-compose --version')
 
 def configure_supervisor():
 
