@@ -31,6 +31,8 @@ terminator
 zsh
 npm (yo, bower, gulp-cli, generator-angular, generator-jhipster)
 vsftpd
+apache2 
+apache2-utils
 java8
 java11
 java13

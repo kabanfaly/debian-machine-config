@@ -64,14 +64,38 @@ def install_utils_packages():
     if confirm.upper() in ('Y', 'YES') :
         install_packages(UTILS_PACKAGES)
 
-def install_php():
+def install_php5_6():
     """
     Install some php packages
     :return:
     """
-    confirm = input('Your are about to install php. Do you want to continue ? Y/N : ')
+    confirm = input('Your are about to install php 5.6 . Do you want to continue ? Y/N : ')
     if confirm.upper() in ('Y', 'YES') :
-        install_packages(PHP_PACKAGES)
+        os.system('sudo apt install software-properties-common')
+        os.system('sudo add-apt-repository ppa:ondrej/php && sudo apt update')
+        install_packages(PHP5_6_PACKAGES)
+
+def install_php7_2():
+    """
+    Install some php packages
+    :return:
+    """
+    confirm = input('Your are about to install php 7.2 . Do you want to continue ? Y/N : ')
+    if confirm.upper() in ('Y', 'YES') :
+        os.system('sudo apt install software-properties-common')
+        os.system('sudo add-apt-repository ppa:ondrej/php && sudo apt update')
+        install_packages(PHP7_2_PACKAGES)
+
+def install_php7_4():
+    """
+    Install some php packages
+    :return:
+    """
+    confirm = input('Your are about to install php 7.4 . Do you want to continue ? Y/N : ')
+    if confirm.upper() in ('Y', 'YES') :
+        os.system('sudo apt install software-properties-common')
+        os.system('sudo add-apt-repository ppa:ondrej/php && sudo apt update')
+        install_packages(PHP7_4_PACKAGES)
 
 def install_java():
     """
@@ -134,6 +158,7 @@ def configure_apache2():
     print('----- Configuring apache2 -----')
     confirm = input('Your are about to configure apache2. Do you want to continue ? Y/N : ')
     if confirm.upper() in ('Y', 'YES') :
+        os.system('sudo apt install apache2')
         os.system("sudo cp ./apache2/sites-available/perform-world.conf /etc/apache2/sites-available")
         os.system("sudo a2enmod proxy")
         os.system("sudo service apache2 restart")
@@ -186,7 +211,9 @@ def configure_supervisor():
 def install_all():
     install_utils_packages()
     configure_git()
-    install_php()
+    install_php5_6()
+    install_php7_2()
+    install_php7_4()
     configure_hosts()
     configure_apache2()
     configure_supervisor()
@@ -199,15 +226,17 @@ def run():
     --- Packages and tools intaller ---
     1- Install utils packages
     2- Configure GIT
-    3- Install PHP
-    4- Configure Hosts
-    5- Configure apache2
-    6- Configure supervisor
-    7- Install Java
-    8- Install NPM modules
-    9- Install Docker
-    10- Install all
-    11- Quit
+    3- Install PHP 5.6
+    4- Install PHP 7.2
+    5- Install PHP 7.4
+    6- Configure Hosts
+    7- Configure apache2
+    8- Configure supervisor
+    9- Install Java
+    10- Install NPM modules
+    11- Install Docker
+    12- Install all
+    13- Quit
 
     Your choice :
     '''
@@ -217,15 +246,17 @@ def run():
     choice_resolver = {
         1: install_utils_packages,
         2: configure_git,
-        3: install_php,
-        4: configure_hosts,
-        5: configure_apache2,
-        6: configure_supervisor,
-        7: install_java,
-        8: install_npm_modules,
-        9: install_docker,
-        10: install_all,
-        11: quit
+        3: install_php5_6,
+        4: install_php7_2,
+        5: install_php7_4,
+        6: configure_hosts,
+        7: configure_apache2,
+        8: configure_supervisor,
+        9: install_java,
+        10: install_npm_modules,
+        11: install_docker,
+        12: install_all,
+        13: quit
     }
 
     choice_resolver[choice]()
