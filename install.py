@@ -5,7 +5,7 @@ from config import *
 def configure_git():
     print('----- Configuring GIT -----')
 
-    confirm = input('Your are about to configure git. Do you want to continue ? Y/N : ')
+    confirm = input('Your are about to configure git. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         resp1 = os.system("git config --global user.email \"%s\"" % CONFIG["email"])
         resp2 = os.system("git config --global user.name \"%s\"" % CONFIG["name"])
@@ -49,7 +49,7 @@ def install_utils_packages():
     Install some utilities packages
     :return:
     """
-    confirm = input('Your are about to install utils packages. Do you want to continue ? Y/N : ')
+    confirm = input('Your are about to install utils packages. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         install_packages(UTILS_PACKAGES)
 
@@ -58,7 +58,7 @@ def install_php(version) :
     Install some php packages
     :return:
     """
-    confirm = input('Your are about to install php ' + version + ' . Do you want to continue ? Y/N : ')    
+    confirm = input('Your are about to install php ' + version + ' . Do you want to continue ? [Y/n] : ')    
     if confirm.upper() not in ('N', 'No') :
         os.system('sudo apt install software-properties-common')
         os.system('sudo add-apt-repository ppa:ondrej/php && sudo apt update')
@@ -104,7 +104,7 @@ def install_java():
     """
     print('----- Installing Java -----')
 
-    confirm = input('Your are about to install java. Do you want to continue ? Y/N : ')
+    confirm = input('Your are about to install java. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt-get install -y software-properties-common")
         os.system("add-apt-repository ppa:linuxuprising/java")
@@ -121,7 +121,7 @@ def install_npm_modules():
     """
     print('----- Installing npm modules -----')
 
-    confirm = input('Your are about to install npm modules. Do you want to continue ? Y/N : ')
+    confirm = input('Your are about to install npm modules. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt-get update")
         os.system("sudo apt-get install -y npm")
@@ -143,7 +143,7 @@ def configure_hosts():
     """
     print('----- Configuring hosts -----')
 
-    confirm = input('Your are about to configure hosts. Do you want to continue ? Y/N : ')
+    confirm = input('Your are about to configure hosts. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         if 'dev.perform-world.com' not in open('/etc/hosts').read():
             os.system("echo  '127.0.0.1       dev.perform-world.com' | sudo tee -a /etc/hosts")
@@ -156,7 +156,7 @@ def configure_apache2():
     :return:
     """
     print('----- Configuring apache2 -----')
-    confirm = input('Your are about to configure apache2. Do you want to continue ? Y/N : ')
+    confirm = input('Your are about to configure apache2. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         os.system('sudo apt install apache2')
         os.system("sudo cp ./apache2/sites-available/perform-world.conf /etc/apache2/sites-available")
@@ -171,7 +171,7 @@ def install_docker():
     Install docker
     """
     print('----- Installing docker -----')
-    confirm = input('Your are about to install docker. Do you want to continue ? Y/N : ')
+    confirm = input('Your are about to install docker. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt-get update")
         os.system("sudo apt-get remove docker docker-engine docker.io")
@@ -192,7 +192,7 @@ def configure_supervisor():
     """
     print('----- Installing supervisor -----')
 
-    confirm = input('Your are about to install supervisor. Do you want to continue ? Y/N : ')
+    confirm = input('Your are about to install supervisor. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt-get update")
         os.system("sudo apt install -y supervisor")
