@@ -58,18 +58,18 @@ def install_php(version) :
     Install some php packages
     :return:
     """
-    confirm = input('Your are about to install php ' + version + ' . Do you want to continue ? [Y/n] : ')    
+    confirm = input('Your are about to install php ' + version + ' . Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No') :
         os.system('sudo apt install software-properties-common')
         os.system('sudo add-apt-repository ppa:ondrej/php && sudo apt update')
         packages = [package.replace('VERSION', version) for package in PHP_PACKAGES]
         install_packages(packages)
-        os.system('sudo a2enmod actions alias proxy_fcgi fcgid')        
+        os.system('sudo a2enmod actions alias proxy_fcgi fcgid')
         os.system('echo echo "<?php phpinfo() ?>" | sudo tee /var/www/html/_info.php')
-        os.system('sudo cp ./scripts/usePhp.py /usr/local/bin')        
+        os.system('sudo cp ./scripts/usePhp.py /usr/local/bin')
         os.system('sudo mv /usr/local/bin/usePhp.py /usr/local/bin/usePhp')
         os.system('sudo chmod +x /usr/local/bin/usePhp')
-                
+
         install_composer()
         os.system('sudo systemctl restart apache2')
 
@@ -163,8 +163,6 @@ def configure_apache2():
         os.system("sudo a2enmod proxy")
         os.system("sudo service apache2 restart")
         os.system("sudo a2ensite perform-world.conf")
-        os.system('sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose')
-        os.system("sudo chmod +x /usr/local/bin/docker-compose")
 
 def install_docker():
     """
