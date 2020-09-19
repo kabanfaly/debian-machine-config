@@ -28,3 +28,28 @@ docker-compose
 
 # run
 python3 install.py
+
+# Output
+ --- Packages and tools intaller ---
+    1- Install utils packages
+    2- Configure GIT
+    3- Install PHP 5.6
+    4- Install PHP 7.2
+    5- Install PHP 7.4
+    6- Configure Hosts
+    7- Configure apache2
+    8- Configure supervisor
+    9- Install Java
+    10- Install NPM modules
+    11- Install Docker
+    12- Install all
+    13- Quit
+
+    Your choice :
+    
+Your choice : 
+
+# For PHP
+After installing php use the command usePhp to switch php version on your system
+## Example
+usePhp 5.6 

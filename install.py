@@ -72,6 +72,8 @@ def install_php(version) :
 
         install_composer()
         os.system('sudo systemctl restart apache2')
+        print('php ' + version + ' is completely installed. Use the command "usePhp" to switch php version.\n')
+        print('Example: usePhp ' + version)
 
 
 def install_composer() :
