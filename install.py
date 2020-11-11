@@ -126,16 +126,17 @@ def install_npm_modules():
     confirm = input('Your are about to install npm modules. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt-get update")
-        os.system("sudo apt-get install -y npm")
+        os.system("sudo apt remove -y nodejs npm")
+        #os.system("sudo apt-get install -y npm")
+        os.system("curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -")
+        os.system("sudo apt install -y nodejs")
+        os.system("sudo dpkg -r --force-depends nodejs")
         os.system("sudo ln -sf /usr/bin/nodejs /usr/bin/node")
         modules = ["npm", "yo", "gulp-cli", "bower", "generator-angular", "generator-jhipster"]
 
         for mod in modules:
             os.system("sudo npm install -g %s" % mod)
-
-        os.system("sudo apt remove nodejs npm")
-        os.system("curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -")
-        os.system("sudo apt-get install -y nodejs")
+        print("run: 'sudo dpkg -r --force-depends nodejs' if the installation fails")
 
 
 def configure_hosts():

@@ -3,6 +3,7 @@ services:
   prestashop:
     image: prestashop/prestashop:latest
     container_name: prestashop
+    restart: always
     volumes:
       - ${HOME}/NetBeansProjects/PHP/prestashop:/var/www/html
     environment:
@@ -19,6 +20,7 @@ services:
   prestashop-mysql:
     image: mysql:5.7
     container_name: mysql
+    restart: always
     ports:
      - "3307:3306"
     environment:
@@ -44,6 +46,7 @@ services:
   mariadb:
     image: mariadb:10.5.3
     container_name: mariadb
+    restart: always
     volumes:
       - ~/storage/docker/mariadb/:/var/lib/mysql/
     environment:
