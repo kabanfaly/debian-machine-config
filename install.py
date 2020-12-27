@@ -130,7 +130,7 @@ def install_java():
         os.system(
             "lsb_release -i | grep 'Debian' && " +
             'echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu focal main" ' +
-            '| sudo tee /etc/apt/sources.list.d/linuxuprising-java.list && ' +
+            '| sudo tee /etc/apt/sources.list.d/linuxuprising-java.list ' +
             '&& sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A')
 
         os.system("sudo apt-get update")
