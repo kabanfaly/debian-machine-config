@@ -44,6 +44,7 @@ def install_packages(packages):
         print(s)
     print("Report: %d/%d packages installed" % (install_ok, total))
 
+
 def install_utils_packages():
     """
     Install some utilities packages
@@ -53,15 +54,25 @@ def install_utils_packages():
     if confirm.upper() not in ('N', 'No'):
         install_packages(UTILS_PACKAGES)
 
-def install_php(version) :
+
+def install_php(version):
     """
     Install some php packages
     :return:
     """
     confirm = input('Your are about to install php ' + version + ' . Do you want to continue ? [Y/n] : ')
-    if confirm.upper() not in ('N', 'No') :
-        os.system('sudo apt install software-properties-common')
-        os.system('sudo add-apt-repository ppa:ondrej/php && sudo apt update')
+    if confirm.upper() not in ('N', 'No'):
+        os.system(
+            "lsb_release -i | grep 'Ubuntu' && sudo apt install -y software-properties-common" +
+            " && sudo add-apt-repository ppa:ondrej/php ")
+        os.system(
+            "lsb_release -i | grep 'Debian' "
+            "&& sudo apt install -y apt-transport-https lsb-release ca-certificates wget " +
+            "&& sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg " +
+            '&& echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" ' +
+            '| sudo tee /etc/apt/sources.list.d/php.list')
+
+        os.system('sudo apt update')
         packages = [package.replace('VERSION', version) for package in PHP_PACKAGES]
         install_packages(packages)
         os.system('sudo a2enmod actions alias proxy_fcgi fcgid')
@@ -76,7 +87,7 @@ def install_php(version) :
         print('Example: usePhp ' + version)
 
 
-def install_composer() :
+def install_composer():
     """
     Install some php composer
     :return:
@@ -86,18 +97,23 @@ def install_composer() :
     os.system('curl -sS https://getcomposer.org/installer -o composer.php')
     os.system('HASH=`curl -sS https://composer.github.io/installer.sig`')
     os.system('echo $HASH')
-    os.system("php -r \"if (hash_file('SHA384', 'composer.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\"")
+    os.system(
+        "php -r \"if (hash_file('SHA384', 'composer.php') === '$HASH') { echo 'Installer verified'; } " +
+        "else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\"")
     os.system('sudo php composer.php --install-dir=/usr/local/bin --filename=composer')
 
 
 def install_php5_6():
     install_php('5.6')
 
+
 def install_php7_2():
-     install_php('7.2')
+    install_php('7.2')
+
 
 def install_php7_4():
-     install_php('7.4')
+    install_php('7.4')
+
 
 def install_java():
     """
@@ -108,8 +124,15 @@ def install_java():
 
     confirm = input('Your are about to install java. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
-        os.system("sudo apt-get install -y software-properties-common")
-        os.system("sudo add-apt-repository ppa:linuxuprising/java")
+        os.system(
+            "lsb_release -i | grep 'Ubuntu' && sudo apt-get install -y software-properties-common" +
+            " && sudo add-apt-repository ppa:linuxuprising/java")
+        os.system(
+            "lsb_release -i | grep 'Debian' && " +
+            'echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu focal main" ' +
+            '| sudo tee /etc/apt/sources.list.d/linuxuprising-java.list && ' +
+            '&& sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A')
+
         os.system("sudo apt-get update")
         os.system("sudo apt-get install -y openjdk-8-jdk openjdk-11-jdk openjdk-15-jdk oracle-java15-installer")
 
@@ -127,7 +150,7 @@ def install_npm_modules():
     if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt-get update")
         os.system("sudo apt remove -y nodejs npm")
-        #os.system("sudo apt-get install -y npm")
+        # os.system("sudo apt-get install -y npm")
         os.system("curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -")
         os.system("sudo apt install -y nodejs")
         os.system("sudo dpkg -r --force-depends nodejs")
@@ -167,6 +190,7 @@ def configure_apache2():
         os.system("sudo service apache2 restart")
         os.system("sudo a2ensite perform-world.conf")
 
+
 def install_docker():
     """
     Install docker
@@ -180,13 +204,14 @@ def install_docker():
         os.system("sudo systemctl start docker")
         os.system("sudo systemctl enable docker")
         print('----- Installing docker-compose -----')
-        os.system('sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose')
+        os.system(
+            'sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose')
         os.system('sudo chmod +x /usr/local/bin/docker-compose')
         os.system('sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose')
         os.system('docker-compose --version')
 
-def configure_supervisor():
 
+def configure_supervisor():
     """
     configures supervisord
     :return:
@@ -203,11 +228,13 @@ def configure_supervisor():
             os.system("echo  '[inet_http_server]' | sudo tee -a /etc/supervisor/supervisord.conf")
             os.system("echo  'port = 127.0.0.1:9001' | sudo tee -a /etc/supervisor/supervisord.conf")
             os.system("echo  'username = kaba' | sudo tee -a /etc/supervisor/supervisord.conf")
-            os.system("echo  'password = {SHA}da3c01ea4729ba5fc5ed83d2e85b2b00c118753f' | sudo tee -a /etc/supervisor/supervisord.conf")
+            os.system(
+                "echo  'password = {SHA}da3c01ea4729ba5fc5ed83d2e85b2b00c118753f' | sudo tee -a /etc/supervisor/supervisord.conf")
 
         os.system("sudo a2ensite supervisord.conf")
         os.system("sudo service apache2 restart")
         os.system("sudo service supervisor restart")
+
 
 def install_all():
     install_utils_packages()
@@ -221,6 +248,7 @@ def install_all():
     install_java()
     install_npm_modules()
     install_docker()
+
 
 def run():
     menu = '''
@@ -261,6 +289,7 @@ def run():
     }
 
     choice_resolver[choice]()
+
 
 if __name__ == '__main__':
     run()
