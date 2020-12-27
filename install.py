@@ -131,14 +131,15 @@ def install_npm_modules():
 
     confirm = input('Your are about to install npm modules. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
-        os.system("sudo apt-get update")
         os.system("sudo apt remove -y nodejs npm")
-        # os.system("sudo apt-get install -y npm")
         os.system("curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -")
-        os.system("sudo apt install -y nodejs")
-        os.system("sudo dpkg -r --force-depends nodejs")
-        os.system("sudo ln -sf /usr/bin/nodejs /usr/bin/node")
-        modules = ["npm", "yo", "gulp-cli", "bower", "generator-angular", "generator-jhipster"]
+        print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+        os.system("sudo apt-get update")
+        os.system("sudo apt-get install -y nodejs")
+        #os.system("sudo dpkg -r --force-depends nodejs")
+        #os.system("sudo ln -sf /usr/bin/nodejs /usr/bin/node")
+        modules = ["yo", "gulp-cli", "react", "generator-angular", "generator-jhipster"]
+        print('------- Installing npm modules --------')
 
         for mod in modules:
             os.system("sudo npm install -g %s" % mod)
@@ -225,9 +226,9 @@ def install_all():
     install_php5_6()
     install_php7_2()
     install_php7_4()
-    configure_hosts()
-    configure_apache2()
-    configure_supervisor()
+    #configure_hosts()
+    #configure_apache2()
+    #configure_supervisor()
     install_java()
     install_npm_modules()
     install_docker()
