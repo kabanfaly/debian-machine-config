@@ -133,11 +133,8 @@ def install_npm_modules():
     if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt remove -y nodejs npm")
         os.system("curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -")
-        print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
         os.system("sudo apt-get update")
         os.system("sudo apt-get install -y nodejs")
-        #os.system("sudo dpkg -r --force-depends nodejs")
-        #os.system("sudo ln -sf /usr/bin/nodejs /usr/bin/node")
         modules = ["yo", "gulp-cli", "react", "generator-angular", "generator-jhipster"]
         print('------- Installing npm modules --------')
 
@@ -148,7 +145,7 @@ def install_npm_modules():
 
 def configure_hosts():
     """
-    add costum hosts
+    add custom hosts
     :return:
     """
     print('----- Configuring hosts -----')
@@ -242,9 +239,9 @@ def run():
     3- Install PHP 5.6
     4- Install PHP 7.2
     5- Install PHP 7.4
-    6- Configure Hosts
-    7- Configure apache2
-    8- Configure supervisor
+    #6- Configure Hosts (ignored)
+    #7- Configure apache2 (ignored)
+    #8- Configure supervisor (ignored)
     9- Install Java
     10- Install NPM modules
     11- Install Docker
@@ -262,9 +259,9 @@ def run():
         3: install_php5_6,
         4: install_php7_2,
         5: install_php7_4,
-        6: configure_hosts,
-        7: configure_apache2,
-        8: configure_supervisor,
+        #6: configure_hosts,
+        #7: configure_apache2,
+        #8: configure_supervisor,
         9: install_java,
         10: install_npm_modules,
         11: install_docker,
