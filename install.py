@@ -109,11 +109,11 @@ def install_java():
     confirm = input('Your are about to install java. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt-get install -y software-properties-common")
-        os.system("add-apt-repository ppa:linuxuprising/java")
+        os.system("sudo add-apt-repository ppa:linuxuprising/java")
         os.system("sudo apt-get update")
-        os.system("sudo apt-get install -y openjdk-8-jdk openjdk-11-jdk openjdk-13-jdk openjdk-14-jdk")
+        os.system("sudo apt-get install -y openjdk-8-jdk openjdk-11-jdk openjdk-15-jdk oracle-java15-installer")
 
-        print("Installing java-11 and java13 OK ...")
+        print("Installing java8, java13 and java15 OK ...")
 
 
 def install_npm_modules():
