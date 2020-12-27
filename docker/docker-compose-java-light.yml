@@ -30,6 +30,14 @@ services:
     networks:
      - local-net
 
+  adminer:
+      image: adminer
+      restart: always
+      ports:
+        - 8383:8080
+      networks:
+       - local-net
+
   mongo:
     image: mongo:4.2.6
     container_name: mongo
@@ -40,17 +48,6 @@ services:
     restart: always
     networks:
      - local-net
-
-  # postgres:
-  #   image: postgres:13.0-alpine
-  #   container_name: postgres
-  #   restart: always
-  #   volumes:
-  #     - ~/storage/docker/postgres:/var/lib/postgresql/data
-  #   ports:
-  #     - 5432:5432
-  #   networks:
-  #    - local-net
 
 networks:
     local-net:

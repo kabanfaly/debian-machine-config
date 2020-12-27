@@ -30,6 +30,14 @@ services:
     volumes:
       - ~/storage/docker/mysql:/var/lib/mysql
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8383:8080
+    networks:
+     - local-net
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin

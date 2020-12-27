@@ -73,6 +73,14 @@ services:
     networks:
      - local-net
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8383:8080
+    networks:
+     - local-net
+
   mongo:
     image: mongo:4.2.6
     container_name: mongo
