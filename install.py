@@ -111,7 +111,7 @@ def install_java():
         os.system("sudo apt-get install -y software-properties-common")
         os.system("add-apt-repository ppa:linuxuprising/java")
         os.system("sudo apt-get update")
-        os.system("sudo apt-get install -y openjdk-8-jdk openjdk-11-jdk openjdk-13-jdk openjdk-14-jdk oracle-java11-installer oracle-java13-installer")
+        os.system("sudo apt-get install -y openjdk-8-jdk openjdk-11-jdk openjdk-13-jdk openjdk-14-jdk")
 
         print("Installing java-11 and java13 OK ...")
 
