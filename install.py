@@ -66,7 +66,7 @@ def install_php(version):
             "lsb_release -i | grep 'Ubuntu' && sudo apt install -y software-properties-common" +
             " && sudo add-apt-repository ppa:ondrej/php ")
         os.system(
-            "lsb_release -i | grep 'Debian' "
+            "lsb_release -i | grep 'Debian' " +
             "&& sudo apt install -y apt-transport-https lsb-release ca-certificates wget " +
             "&& sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg " +
             '&& echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" ' +
