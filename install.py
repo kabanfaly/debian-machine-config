@@ -62,17 +62,8 @@ def install_php(version):
     """
     confirm = input('Your are about to install php ' + version + ' . Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
-        os.system(
-            "lsb_release -i | grep 'Ubuntu' && sudo apt install -y software-properties-common" +
-            " && sudo add-apt-repository ppa:ondrej/php ")
-        os.system(
-            "lsb_release -i | grep 'Debian' " +
-            "&& sudo apt install -y apt-transport-https lsb-release ca-certificates wget " +
-            "&& sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg " +
-            '&& echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" ' +
-            '| sudo tee /etc/apt/sources.list.d/php.list')
-
-        os.system('sudo apt update')
+        os.system('sudo apt install software-properties-common')
+        os.system('sudo add-apt-repository ppa:ondrej/php && sudo apt update')
         packages = [package.replace('VERSION', version) for package in PHP_PACKAGES]
         install_packages(packages)
         os.system('sudo a2enmod actions alias proxy_fcgi fcgid')
@@ -98,8 +89,7 @@ def install_composer():
     os.system('HASH=`curl -sS https://composer.github.io/installer.sig`')
     os.system('echo $HASH')
     os.system(
-        "php -r \"if (hash_file('SHA384', 'composer.php') === '$HASH') { echo 'Installer verified'; } " +
-        "else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\"")
+        "php -r \"if (hash_file('SHA384', 'composer.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\"")
     os.system('sudo php composer.php --install-dir=/usr/local/bin --filename=composer')
 
 
@@ -124,15 +114,8 @@ def install_java():
 
     confirm = input('Your are about to install java. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
-        os.system(
-            "lsb_release -i | grep 'Ubuntu' && sudo apt-get install -y software-properties-common" +
-            " && sudo add-apt-repository ppa:linuxuprising/java")
-        os.system(
-            "lsb_release -i | grep 'Debian' && " +
-            'echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu focal main" ' +
-            '| sudo tee /etc/apt/sources.list.d/linuxuprising-java.list ' +
-            '&& sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A')
-
+        os.system("sudo apt-get install -y software-properties-common")
+        os.system("sudo add-apt-repository ppa:linuxuprising/java")
         os.system("sudo apt-get update")
         os.system("sudo apt-get install -y openjdk-8-jdk openjdk-11-jdk openjdk-15-jdk oracle-java15-installer")
 
