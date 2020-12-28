@@ -1,2 +1,2 @@
-docker exec -it mariadb mysql -u root -pkabamysql --protocol=TCP
+sudo docker exec -it mariadb mysql -u root -pkabamysql --protocol=TCP
 
