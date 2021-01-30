@@ -37,6 +37,15 @@ services:
         - 8383:8080
       networks:
        - local-net
+  
+  kaba-cloud-config:
+    image: knfaly/kaba-cloud-config:latest
+    container_name: kaba-cloud-config
+    ports:
+      - 8888:8888
+    restart: always
+    networks:
+     - local-net
 
   mongo:
     image: mongo:4.2.6

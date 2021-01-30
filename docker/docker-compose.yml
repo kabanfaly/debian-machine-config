@@ -10,13 +10,25 @@ services:
       - MYSQL_USER=root
       - MYSQL_ROOT_PASSWORD=kabamysql
       - MYSQL_ALLOW_EMPTY_PASSWORD=no
-      - MYSQL_DATABASE=registre_naissances
     ports:
       - 3306:3306
     command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
     networks:
       - local-net
 
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=kabamysql
+    networks:
+      - local-net
+    volumes:
+      - ~/storage/docker/mysql:/var/lib/mysql
+      
   phpmyadmin-mariadb:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin-mariadb
