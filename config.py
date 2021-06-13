@@ -1,6 +1,6 @@
 CONFIG = {'name': "KABA N'Faly", 'email': 'nfalykaba@gmail.com'}
 
-UTILS_PACKAGES = ('build-essential', 'git', 'tree', 'git-flow', 'vim', 'maven',
+UTILS_PACKAGES = ('build-essential', 'git', 'tree', 'git-flow', 'vim', 'maven', 'filezilla',
  'supervisor', 'atool', 'python3-pip' 'ipython', 'python3-setuptools',
  'python3-mysqldb', 'ssh', 'gimp', 'curl',
  'unzip', 'terminator', 'zsh', 'npm', 'vsftpd',
