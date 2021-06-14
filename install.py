@@ -135,10 +135,9 @@ def install_npm_modules():
         os.system("curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -")
         os.system("sudo apt-get update")
         os.system("sudo apt-get install -y nodejs")
-        modules = ["yo", "gulp-cli", "react", "generator-angular", "generator-jhipster"]
         print('------- Installing npm modules --------')
 
-        for mod in modules:
+        for mod in NPM_MODULES:
             os.system("sudo npm install -g %s" % mod)
         print("run: 'sudo dpkg -r --force-depends nodejs' if the installation fails")
 
