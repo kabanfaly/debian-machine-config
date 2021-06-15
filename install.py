@@ -114,12 +114,15 @@ def install_java():
 
     confirm = input('Your are about to install java. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
-        os.system("sudo apt-get install -y software-properties-common")
-        os.system("sudo add-apt-repository ppa:linuxuprising/java")
-        os.system("sudo apt-get update")
-        os.system("sudo apt-get install -y openjdk-8-jdk openjdk-11-jdk openjdk-15-jdk oracle-java15-installer")
-
-        print("Installing java8, java13 and java15 OK ...")
+        print('----- Installing sdkman -----')
+        os.system('curl -s "https://get.sdkman.io" | bash')
+        print('----- Run the following commands to complete java installation -----')
+        print('source "$HOME/.sdkman/bin/sdkman-init.sh"')
+        print('sdk list java')
+        print('sdk install java 11.0.11.j9-adpt')
+        print('sdk install java 16.0.1.j9-adpt')
+        print('sdk install java 8.0.292.j9-adpt')
+        print('----- sdkman installation done -----')   
 
 
 def install_npm_modules():
