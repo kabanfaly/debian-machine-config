@@ -4,7 +4,7 @@ UTILS_PACKAGES = ('build-essential', 'git', 'tree', 'git-flow', 'vim', 'maven', 
  'supervisor', 'atool', 'python3-pip' 'ipython', 'python3-setuptools',
  'python3-mysqldb', 'ssh', 'gimp', 'curl', 'net-tools',
  'unzip', 'terminator', 'zsh', 'npm', 'vsftpd',
- 'apache2', 'apache2-utils', 'make', 'playonlinux', 'winbind')
+ 'apache2', 'apache2-utils', 'make', 'playonlinux', 'winbind', 'net-tools')
 
 PHP_PACKAGES = ('apache2', 'apache2-utils', 'libapache2-mod-fcgid',
 'php-pear', 'phpVERSION', 'phpVERSION-dev', 'phpVERSION-common',
