@@ -66,7 +66,8 @@ def install_php(version):
         os.system('sudo add-apt-repository ppa:ondrej/php && sudo apt update')
         packages = [package.replace('VERSION', version) for package in PHP_PACKAGES]
         install_packages(packages)
-        os.system('sudo a2enmod actions alias proxy_fcgi fcgid')
+        os.system('sudo a2enmod actions alias proxy_fcgi fcgid env rewrite')
+        os.system('sudo asystemctl restart apache2')
         os.system('echo echo "<?php phpinfo() ?>" | sudo tee /var/www/html/_info.php')
         os.system('sudo cp ./scripts/usePhp.py /usr/local/bin')
         os.system('sudo mv /usr/local/bin/usePhp.py /usr/local/bin/usePhp')
@@ -168,9 +169,9 @@ def configure_apache2():
     if confirm.upper() not in ('N', 'No'):
         os.system('sudo apt install apache2')
         os.system("sudo cp ./apache2/sites-available/kn-erp.conf /etc/apache2/sites-available")
-        os.system("sudo a2enmod proxy")
-        os.system("sudo service apache2 restart")
+        os.system("sudo a2enmod proxy env rewrite")
         os.system("sudo a2ensite kn-erp.conf")
+        os.system("sudo service apache2 restart")
 
 
 def install_docker():
