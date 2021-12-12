@@ -154,10 +154,9 @@ def configure_hosts():
 
     confirm = input('Your are about to configure hosts. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
-        if 'dev.perform-world.com' not in open('/etc/hosts').read():
-            os.system("echo  '127.0.0.1       dev.perform-world.com' | sudo tee -a /etc/hosts")
-            os.system("echo  '127.0.0.1       local.supervisor' | sudo tee -a /etc/hosts")
-
+        if 'dev.kn-erp.com' not in open('/etc/hosts').read():
+            os.system("echo  '127.0.0.1       dev.kn-erp.com' | sudo tee -a /etc/hosts")
+            
 
 def configure_apache2():
     """
@@ -168,10 +167,10 @@ def configure_apache2():
     confirm = input('Your are about to configure apache2. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         os.system('sudo apt install apache2')
-        os.system("sudo cp ./apache2/sites-available/perform-world.conf /etc/apache2/sites-available")
+        os.system("sudo cp ./apache2/sites-available/kn-erp.conf /etc/apache2/sites-available")
         os.system("sudo a2enmod proxy")
         os.system("sudo service apache2 restart")
-        os.system("sudo a2ensite perform-world.conf")
+        os.system("sudo a2ensite kn-erp.conf")
 
 
 def install_docker():
@@ -188,7 +187,7 @@ def install_docker():
         os.system("sudo systemctl enable docker")
         print('----- Installing docker-compose -----')
         os.system(
-            'sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose')
+            'sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose')
         os.system('sudo chmod +x /usr/local/bin/docker-compose')
         os.system('sudo chmod 666 /var/run/docker.sock')
         os.system('sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose')
@@ -226,8 +225,8 @@ def install_all():
     install_php5_6()
     install_php7_2()
     install_php7_4()
-    #configure_hosts()
-    #configure_apache2()
+    configure_hosts()
+    configure_apache2()
     #configure_supervisor()
     install_java()
     install_npm_modules()
@@ -242,8 +241,8 @@ def run():
     3- Install PHP 5.6
     4- Install PHP 7.2
     5- Install PHP 7.4
-    #6- Configure Hosts (ignored)
-    #7- Configure apache2 (ignored)
+    6- Configure Hosts (optional)
+    7- Configure apache2 (optional)
     #8- Configure supervisor (ignored)
     9- Install Java
     10- Install NPM modules
@@ -262,8 +261,8 @@ def run():
         3: install_php5_6,
         4: install_php7_2,
         5: install_php7_4,
-        #6: configure_hosts,
-        #7: configure_apache2,
+        6: configure_hosts,
+        7: configure_apache2,
         #8: configure_supervisor,
         9: install_java,
         10: install_npm_modules,

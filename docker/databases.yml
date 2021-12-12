@@ -29,6 +29,19 @@ services:
     volumes:
       - ~/storage/docker/mysql:/var/lib/mysql
 
+  postgres:
+    image: "postgres:14.0"
+    ports:
+      - "5432:5432"
+    networks:
+      - local-net
+    volumes:
+      - ~/storage/docker/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=kabapg
+      - POSTGRES_HOST_AUTH_METHOD=trust  
+
   adminer:
     image: adminer
     restart: always
