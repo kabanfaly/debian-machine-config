@@ -17,5 +17,6 @@ os.system('sudo a2dismod php' + version)
 os.system('sudo a2enconf php' + version + '-fpm.conf')
 alternative = 'sudo update-alternatives --set php /usr/bin/php' + version
 os.system(alternative)
+os.system('sudo service php' + version + '-fpm start')
 os.system('sudo service apache2 restart')
 os.system('php -version')
