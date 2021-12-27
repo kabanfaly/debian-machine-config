@@ -136,7 +136,7 @@ def install_npm_modules():
     confirm = input('Your are about to install npm modules. Do you want to continue ? [Y/n] : ')
     if confirm.upper() not in ('N', 'No'):
         os.system("sudo apt remove -y nodejs npm")
-        os.system("curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -")
+        os.system("curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -")
         os.system("sudo apt-get update")
         os.system("sudo apt-get install -y nodejs")
         print('------- Installing npm modules --------')

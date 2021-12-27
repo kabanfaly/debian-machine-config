@@ -11,6 +11,6 @@ PHP_PACKAGES = ('apache2', 'apache2-utils', 'libapache2-mod-fcgid',
 'phpVERSION-cli', 'phpVERSION-apcu', 'phpVERSION-xml', 'phpVERSION-zip',
 'phpVERSION-curl', 'phpVERSION-fpm', 'php5.6-json', 'phpVERSION-opcache',
 'phpVERSION-readline', 'libapache2-mod-phpVERSION', 'phpVERSION-mcrypt',
-'phpVERSION-mysql', 'php-mbstring', 'php-sqlite3', 'php-xdebug', 'libpcre3-dev')
+'phpVERSION-mysql', 'php-mbstring', 'php-sqlite3', 'phpVERSION-xdebug', 'libpcre3-dev')
 
 NPM_MODULES = ('yo', 'gulp-cli', 'react', 'sass', 'generator-angular', 'generator-jhipster', 'yarn', 'vue@next', '@vue/cli')
