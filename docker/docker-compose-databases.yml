@@ -1,0 +1,66 @@
+version: "3.8"
+services:
+  mariadb:
+    image: mariadb:10.5.3
+    container_name: mariadb
+    restart: always
+    volumes:
+      - ~/storage/docker/mariadb/:/var/lib/mysql/
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=kabamysql
+      - MYSQL_ALLOW_EMPTY_PASSWORD=no
+    ports:
+      - 3306:3306
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+    networks:
+      - local-net
+
+  mysql:
+    platform: linux/x86_64
+    image: mysql:5.7
+    container_name: mysql
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=kabamysql
+    networks:
+      - local-net
+    volumes:
+      - ~/storage/docker/mysql:/var/lib/mysql
+
+  postgres:
+    image: "postgres:14.0"
+    ports:
+      - "5432:5432"
+    networks:
+      - local-net
+    volumes:
+      - ~/storage/docker/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=kabapg
+      - POSTGRES_HOST_AUTH_METHOD=trust  
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8383:8080
+    networks:
+      - local-net
+
+  mongo:
+    image: mongo:4.4.2
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ~/storage/docker/mongo:/data/db
+    restart: always
+    networks:
+      - local-net
+
+networks:
+  local-net:

@@ -1,14 +1,14 @@
 databases-up:
-	docker-compose -f databases.yml up -d --remove-orphans
+	docker-compose -f docker-compose-databases.yml up -d --remove-orphans
 
 databases-down:
-	docker-compose -f databases.yml down
+	docker-compose -f docker-compose-databases.yml down
 
 databases-logs:
-	docker-compose -f databases.yml logs -f
+	docker-compose -f docker-compose-databases.yml logs -f
 
 databases-ps:
-	docker-compose -f databases.yml ps
+	docker-compose -f docker-compose-databases.yml ps
 
 prestashop-up:
 	docker-compose -f prestashop.yml up -d --remove-orphans
