@@ -1,6 +1,7 @@
+#!/usr/bin/python3
 import sys, os
 
-PHP_VERSIONS = ['5.6', '7.2', '7.4']
+PHP_VERSIONS = ['5.6', '7.2', '7.4', '8.2']
 
 version = sys.argv[1]
 print ('Version to use:', version)
