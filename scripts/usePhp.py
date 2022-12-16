@@ -2,7 +2,7 @@
 
 import sys, os
 
-PHP_VERSIONS = ['7.4', '8.0']
+PHP_VERSIONS = ['7.4', '8.2']
 
 version = sys.argv[1]
 print ('Version to use:', version)
