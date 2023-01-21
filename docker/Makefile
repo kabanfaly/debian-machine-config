@@ -10,6 +10,18 @@ databases-logs:
 databases-ps:
 	docker-compose -f docker-compose-databases.yml ps
 
+mongo-up:
+	docker-compose -f docker-compose-mongo.yml up -d --remove-orphans
+
+mongo-down:
+	docker-compose -f docker-compose-mongo.yml down
+
+mongo-logs:
+	docker-compose -f docker-compose-mongo.yml logs -f
+
+mongo-ps:
+	docker-compose -f docker-compose-mongo.yml ps
+
 prestashop-up:
 	docker-compose -f prestashop.yml up -d --remove-orphans
 

@@ -64,16 +64,5 @@ services:
     networks:
       - local-net
 
-  mongo:
-    image: mongo:4.4.2
-    container_name: mongo
-    ports:
-      - 27017:27017
-    volumes:
-      - ~/storage/docker/mongo:/data/db
-    restart: always
-    networks:
-      - local-net
-
 networks:
   local-net:
