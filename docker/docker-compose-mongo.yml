@@ -1,15 +1,10 @@
-version: "3.8"
+name: mongo-stack
 services:
   mongo:
-    image: mongo:4.4.2
+    image: mongo:8.0.13
     container_name: mongo
+    restart: always
     ports:
       - 27017:27017
     volumes:
       - ~/storage/docker/mongo:/data/db
-    restart: always
-    networks:
-      - mongo-net
-
-networks:
-  mongo-net:

@@ -2,3 +2,5 @@
 __pycache__
 composer
 venv
+docker/rabbitmq/data/
+docker/rabbitmq/log/
