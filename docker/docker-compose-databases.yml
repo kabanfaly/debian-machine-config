@@ -7,7 +7,7 @@ services:
       - ~/storage/docker/mariadb/:/var/lib/mysql/
     environment:
       - MYSQL_USER=root
-      - MYSQL_ROOT_PASSWORD=kabamysql
+      - MYSQL_ROOT_PASSWORD=
       - MYSQL_ALLOW_EMPTY_PASSWORD=no
     ports:
       - 3308:3306
@@ -23,7 +23,7 @@ services:
     ports:
       - "3307:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=kabamysql
+      - MYSQL_ROOT_PASSWORD=
     networks:
       - local-net
     volumes:
@@ -39,7 +39,7 @@ services:
       - ~/storage/docker/postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=kabapg
+      - POSTGRES_PASSWORD=
       - POSTGRES_HOST_AUTH_METHOD=trust
 
   adminer:
