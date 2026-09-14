@@ -45,3 +45,15 @@ n8n-logs:
 
 n8n-ps:
 	docker compose -f docker-compose-n8n.yml ps
+
+kafka-up:
+	docker compose -f docker-compose-kafka.yml up -d --remove-orphans
+
+kafka-down:
+	docker compose -f docker-compose-kafka.yml down
+
+kafka-logs:
+	docker compose -f docker-compose-kafka.yml logs -f
+
+kafka-ps:
+	docker compose -f docker-compose-kafka.yml ps
